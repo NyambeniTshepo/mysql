@@ -18,3 +18,15 @@ The analysis answers the following questions:
 5. Which product categories perform best?
 6. What is the average order value?
 7. Which regions generate the most revenue?
+
+## Tools Used
+
+- Microsoft SQL Server
+
+## SQL Skills Demonstrated
+
+- SELECT
+- WHERE
+- GROUP BY
+- ORDER BY
+- JOIN

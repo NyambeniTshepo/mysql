@@ -1,0 +1,141 @@
+CREATE DATABASE ecommerceDB
+
+use ecommerceDB
+
+--Customer Table
+CREATE TABLE Customers (
+    CustomerID INT IDENTITY(1,1) PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    Segment VARCHAR(50),
+    Country VARCHAR(50),
+    City VARCHAR(50),
+    State VARCHAR(50),
+    PostalCode VARCHAR(20),
+    Phone VARCHAR(20),
+    Email VARCHAR(100),
+    RegionID INT
+);
+
+--Products Table
+CREATE TABLE Products (
+    ProductID INT IDENTITY(101,1) PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Category VARCHAR(50),
+    SubCategory VARCHAR(50),
+    Brand VARCHAR(50),
+    Supplier VARCHAR(100),
+    UnitPrice DECIMAL(10,2),
+    StockQuantity INT,
+    Warranty VARCHAR(50),
+    Rating DECIMAL(3,2)
+);
+
+--Orders Table
+CREATE TABLE Orders (
+    OrderID INT IDENTITY(1001,1) PRIMARY KEY,
+    OrderDate DATE,
+    ShipDate DATE,
+    ShipMode VARCHAR(50),
+    CustomerID INT,
+    Employee VARCHAR(100),
+    OrderPriority VARCHAR(20),
+    Discount DECIMAL(4,2),
+    ShippingCost DECIMAL(10,2),
+    Status VARCHAR(20),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+--OrderDetails Table
+CREATE TABLE OrderDetails (
+    OrderDetailID INT IDENTITY(1,1) PRIMARY KEY,
+    OrderID INT,
+    ProductID INT,
+    Quantity INT,
+    UnitPrice DECIMAL(10,2),
+    Discount DECIMAL(4,2),
+    Sales DECIMAL(10,2),
+    Profit DECIMAL(10,2),
+    ReturnStatus VARCHAR(20),
+    Notes VARCHAR(200),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+--Regions Table
+CREATE TABLE Regions (
+    RegionID INT IDENTITY(1,1) PRIMARY KEY,
+    RegionName VARCHAR(50),
+    CountryCount INT,
+    Manager VARCHAR(100),
+    OfficeLocation VARCHAR(100),
+    Phone VARCHAR(20),
+    Email VARCHAR(100),
+    Budget DECIMAL(12,2),
+    Currency VARCHAR(20),
+    TimeZone VARCHAR(50)
+);
+--Insert customer data
+INSERT INTO Customers VALUES
+('John Smith', 'Consumer', 'USA', 'New York', 'NY', '10001', '555-1111', 'john.smith@email.com', 1),
+('Mary Johnson', 'Corporate', 'Canada', 'Toronto', 'ON', 'M5H', '555-2222', 'mary.j@email.com', 1),
+('David Brown', 'Home Office', 'UK', 'London', 'LDN', 'SW1A', '555-3333', 'david.b@email.com', 2),
+('Linda White', 'Consumer', 'South Africa', 'Pretoria', 'GP', '0002', '555-4444', 'linda.w@email.com', 3),
+('James Green', 'Corporate', 'Australia', 'Sydney', 'NSW', '2000', '555-5555', 'james.g@email.com', 4),
+('Sophia Adams', 'Consumer', 'Brazil', 'São Paulo', 'SP', '01000', '555-6666', 'sophia.a@email.com', 5),
+('Michael Lee', 'Home Office', 'USA', 'Chicago', 'IL', '60601', '555-7777', 'michael.l@email.com', 1),
+('Emma Davis', 'Corporate', 'Germany', 'Berlin', 'BE', '10115', '555-8888', 'emma.d@email.com', 2),
+('Daniel Harris', 'Consumer', 'India', 'Mumbai', 'MH', '400001', '555-9999', 'daniel.h@email.com', 4),
+('Olivia Taylor', 'Home Office', 'Mexico', 'Mexico City', 'DF', '01000', '555-1010', 'olivia.t@email.com', 5);
+
+--Insert product data
+INSERT INTO Products VALUES
+('Office Chair', 'Furniture', 'Chairs', 'ErgoCo', 'OfficeMart', 150.00, 50, '2 years', 4.5),
+('Desk Lamp', 'Office Supplies', 'Lighting', 'BrightLite', 'SupplyHub', 30.00, 200, '1 year', 4.2),
+('Laptop', 'Technology', 'Computers', 'TechPro', 'GlobalTech', 1200.00, 30, '3 years', 4.8),
+('Printer Paper', 'Office Supplies', 'Paper', 'PaperMax', 'SupplyHub', 5.00, 1000, 'N/A', 4.0),
+('Smartphone', 'Technology', 'Phones', 'MobileX', 'GlobalTech', 800.00, 100, '2 years', 4.7),
+('Bookshelf', 'Furniture', 'Storage', 'WoodWorks', 'OfficeMart', 200.00, 40, '5 years', 4.6),
+('Tablet', 'Technology', 'Computers', 'TechPro', 'GlobalTech', 600.00, 80, '2 years', 4.4),
+('Stapler', 'Office Supplies', 'Accessories', 'StapleMax', 'SupplyHub', 10.00, 500, 'N/A', 3.9),
+('Monitor', 'Technology', 'Displays', 'VisionTech', 'GlobalTech', 300.00, 60, '3 years', 4.5),
+('Conference Table', 'Furniture', 'Tables', 'ErgoCo', 'OfficeMart', 700.00, 20, '10 years', 4.7);
+
+--Insert orders data
+INSERT INTO Orders VALUES
+('2026-01-10', '2026-01-12', 'Standard Class', 1, 'Alice Manager', 'High', 0.05, 20.00, 'Shipped'),
+('2026-01-15', '2026-01-16', 'First Class', 2, 'Bob Clerk', 'Medium', 0.10, 15.00, 'Delivered'),
+('2026-02-01', '2026-02-01', 'Same Day', 3, 'Carol Agent', 'Critical', 0.00, 30.00, 'Delivered'),
+('2026-02-05', '2026-02-07', 'Standard Class', 4, 'Dan Supervisor', 'Low', 0.00, 10.00, 'Shipped'),
+('2026-02-20', '2026-02-22', 'Second Class', 5, 'Eve Coordinator', 'High', 0.15, 25.00, 'Pending'),
+('2026-03-01', '2026-03-03', 'Standard Class', 6, 'Frank Manager', 'Medium', 0.00, 18.00, 'Delivered'),
+('2026-03-10', '2026-03-12', 'First Class', 7, 'Grace Clerk', 'High', 0.05, 22.00, 'Shipped'),
+('2026-03-15', '2026-03-17', 'Same Day', 8, 'Henry Agent', 'Critical', 0.00, 35.00, 'Delivered'),
+('2026-03-20', '2026-03-22', 'Second Class', 9, 'Ivy Supervisor', 'Low', 0.10, 12.00, 'Pending'),
+('2026-03-25', '2026-03-27', 'Standard Class', 10, 'Jack Coordinator', 'High', 0.00, 28.00, 'Shipped');
+
+--Insert ordersdetails data
+INSERT INTO OrderDetails VALUES
+(1001, 101, 2, 150.00, 0.05, 285.00, 50.00, 'No Return', 'Bulk office order'),
+(1002, 103, 1, 1200.00, 0.10, 1080.00, 200.00, 'No Return', 'Corporate laptop purchase'),
+(1003, 105, 3, 800.00, 0.00, 2400.00, 400.00, 'Returned', 'Customer returned one unit'),
+(1004, 104, 10, 5.00, 0.00, 50.00, 5.00, 'No Return', 'Paper stock refill'),
+(1005, 102, 5, 30.00, 0.15, 127.50, 20.00, 'No Return', 'Lighting equipment order'),
+(1006, 106, 1, 200.00, 0.00, 200.00, 40.00, 'No Return', 'Furniture order'),
+(1007, 107, 2, 600.00, 0.05, 1140.00, 180.00, 'No Return', 'Tablet purchase'),
+(1008, 108, 20, 10.00, 0.00, 200.00, 30.00, 'No Return', 'Stapler bulk order'),
+(1009, 109, 1, 300.00, 0.10, 270.00, 50.00, 'No Return', 'Monitor order'),
+(1010, 110, 1, 700.00, 0.00, 700.00, 120.00, 'No Return', 'Conference table order');
+
+--Insert ordersdetails data
+INSERT INTO Regions VALUES
+('North America', 2, 'Michael Scott', 'New York', '555-1000', 'na.manager@email.com', 500000.00, 'USD', 'EST'),
+('Europe', 2, 'Sophie Turner', 'London', '555-2000', 'eu.manager@email.com', 300000.00, 'GBP', 'GMT'),
+('Africa', 2, 'Thabo Mbeki', 'Pretoria', '555-3000', 'af.manager@email.com', 200000.00, 'ZAR', 'SAST'),
+('Asia Pacific', 2, 'Kenji Tanaka', 'Sydney', '555-4000', 'ap.manager@email.com', 400000.00, 'AUD', 'AEST'),
+('South America', 2, 'Maria Gomez', 'São Paulo', '555-5000', 'sa.manager@email.com', 250000.00, 'BRL', 'BRT'),
+('Middle East', 1, 'Omar Khalid', 'Dubai', '555-6000', 'me.manager@email.com', 220000.00, 'AED', 'GST'),
+('Central America', 1, 'Carlos Rivera', 'Panama City', '555-7000', 'ca.manager@email.com', 180000.00, 'PAB', 'EST'),
+('Eastern Europe', 1, 'Anna Kowalski', 'Warsaw', '555-8000', 'ee.manager@email.com', 150000.00, 'PLN', 'CET'),
+('South Asia', 2, 'Rajesh Patel', 'Mumbai', '555-9000', 'sa.manager@email.com', 350000.00, 'INR', 'IST'),
+('Nordics', 1, 'Lars Andersen', 'Stockholm', '555-1010', 'no.manager@email.com', 120000.00, 'SEK', 'CET');
+

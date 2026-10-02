@@ -9,6 +9,9 @@
 
 - SELECT
 - WHERE
+- LIKE Statement
 - GROUP BY
 - ORDER BY
+- WHERE vs HAVING
+- LIMIT and Aliasing
 - JOIN

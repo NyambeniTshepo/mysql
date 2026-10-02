@@ -1,0 +1,15 @@
+SELECT ShipMode, AVG(ShippingCost), Min(ShippingCost),Max(ShippingCost), COUNT(ShippingCost)
+FROM Orders
+Group by ShipMode
+
+SELECT ReturnStatus, Profit, Sales
+FROM OrderDetails
+Group by ReturnStatus, Profit, Sales
+
+SELECT TimeZone
+From Regions
+Group by TimeZone
+
+SELECT Category, AVG(UnitPrice), COUNT(UnitPrice)
+FROM Products
+Group By Category

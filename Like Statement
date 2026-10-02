@@ -1,0 +1,11 @@
+SELECT * FROM Customer
+WHERE firstName LIKE 'j%'
+
+ SELECT * FROM Customer
+WHERE firstName LIKE '%o%'
+
+SELECT * FROM Customer
+WHERE firstName LIKE 'J__%'
+
+SELECT * FROM Customer
+WHERE Email LIKE 'o%'

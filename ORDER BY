@@ -1,0 +1,12 @@
+SELECT * FROM Products
+ORDER BY ProductName
+
+SELECT * FROM Products
+ORDER BY Supplier, StockQuantity 
+
+SELECT *
+FROM Customer
+Order by firstName
+
+SELECT * FROM Orders
+ORDER BY OrderPriority

@@ -1,0 +1,15 @@
+ SELECT Segment, Country
+ FROM Customer
+ WHERE Country != 'USA'
+
+ SELECT UnitPrice, Profit, Sales
+ FROM OrderDetails
+ WHERE profit >= 30
+
+ SELECT ShipMode, ShippingCost, Status
+ FROM Orders
+ WHERE Status != 'Pending'
+
+ SELECT Category,Supplier, StockQuantity
+ FROM Products
+ WHERE StockQuantity <= 100
